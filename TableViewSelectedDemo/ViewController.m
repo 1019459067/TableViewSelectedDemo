@@ -108,7 +108,7 @@
 
     self.toolBarContent.hidden = bManaged ? NO : YES;
     // SCREEN_SAFE_AREA_MARGIN_BOTTOM iphoneX 以上设备判断
-    self.toolBarContentBgConstraintH.constant = bManaged ? 51  : 0;
+    self.toolBarContentBgConstraintH.constant = bManaged ? 54 : 0;
 
     [self refreshUI];
 }
