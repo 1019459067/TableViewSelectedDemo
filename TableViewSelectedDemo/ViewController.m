@@ -153,15 +153,22 @@
     sender.enabled = NO;
     
     NSMutableArray *selecetedArray = [NSMutableArray array];
-    for (BusinessInvitation *model in self.dataArray) {
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (int i = 0; i<self.dataArray.count; i++) {
+        BusinessInvitation *model = self.dataArray[i];
         if (model.bSelected) {
             [selecetedArray addObject:model];
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [indexPaths addObject:indexPath];
         }
     }
     
+    // 删除本地数据
     [self.dataArray removeObjectsInArray:selecetedArray];
-    [self refreshUI];
-
+    // 刷新UI
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self updateToolbar];
 }
 
 - (void)businessInvitationToolBar:(BusinessInvitationToolBar *)contentView didSelect:(UIButton *)sender
@@ -215,7 +222,7 @@
 {
     if (!_dataArray) {
         _dataArray = [NSMutableArray array];
-        [self.dataArray addObjectsFromArray:[self getSimulatorData:5]];
+        [self.dataArray addObjectsFromArray:[self getSimulatorData:25]];
     }
     return _dataArray;
 }
